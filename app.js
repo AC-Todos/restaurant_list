@@ -37,4 +37,5 @@ app.get('/restaurants/:restaurant_id', (req, res) => {
 
 app.listen(port, () => {
   console.log("My Restaurant Server Started...")
+  console.log("Listening on http://localhost:8080")
 })
