@@ -1,20 +1,39 @@
 <!-- search bar -->
 <div class="container search-bar">
   <div class="search-bar-outer">
+
     <div class="search-bar-inner">
-      <form action="/search">
-        <h4 class="mb-2">尋找餐廳：</h4>
-        <div class="input-group">
-          <input type="text" name="keyword" value="{{keyword}}" class="form-control" placeholder="輸入餐廳、分類"
-            aria-label="restaurants Name..." value="" aria-describedby="search-button">
-          <div class="input-group-append">
-            <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
-          </div>
+      <h4 class="mb-2">尋找餐廳：</h4>
+      <div class="row justify-content-between">
+        <div class="col-4">
+          <form action="/search">
+            <div class=" input-group">
+              <input type="text" name="keyword" value="{{keyword}}" class="form-control" placeholder="輸入餐廳、分類"
+                aria-label="restaurants Name..." value="" aria-describedby="search-button">
+              <div class="input-group-append">
+                <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </form>
         </div>
-      </form>
+
+        <div class="col-1">
+          <select class="form-select form-select-lg mb-3 " aria-label=".form-select-lg example">
+            <option selected>Sort</option>
+            <option value="1">A->Z</option>
+            <option value="2">Z->A</option>
+            <option value="3">類別</option>
+            <option value="4">地區</option>
+          </select>
+        </div>
+      </div>
+
     </div>
-    <a class="m-2 btn btn-primary" href="./restaurant/new" role="button">NEW +</a>
+
+
   </div>
+  <a class="m-2 btn btn-primary" href="./restaurant/new" role="button">NEW +</a>
+
 </div>
 
 <!-- restaurants list -->
@@ -44,7 +63,7 @@
             aria-disabled="true">Detail</a>
           <a href="/restaurants/{{this._id}}/edit" class="btn btn-outline-primary m-1" role="button"
             aria-disabled="true">Edit</a>
-          <form action="./restaurants/{{this._id}}/delete" method="POST" style="display: inline;">
+          <form action="./restaurants/{{this._id}}?_method=DELETE" method="POST" style="display: inline;">
             <button type="submit" class="btn btn-outline-danger m-1">Delete</button>
           </form>
         </div>

@@ -1,6 +1,7 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 
 const Restaurant = require('./models/restaurant')
@@ -15,7 +16,8 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// app.use(express.static('public'))
+app.use(methodOverride('_method'))
+
 
 const mongoose = require('mongoose'); // 載入 mongoose
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, { useUnifiedTopology: true }) // 設定連線到 mongoDB
@@ -32,7 +34,6 @@ db.once('open', () => {
 
 
 app.get('/', (req, res) => {
-  // past the movie data into 'index' partial template
   Restaurant.find()
     .lean()
     .then(data => res.render('index', { restaurants: data }))
@@ -86,7 +87,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
 
 })
 
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   const updatedRestaurant = req.body
   return Restaurant.findById(id)
@@ -106,7 +107,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())
