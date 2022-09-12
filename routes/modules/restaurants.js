@@ -4,19 +4,20 @@ const router = express.Router()
 const Restaurant = require('../../models/restaurant')
 
 
+// this should be before /:id, or "new" would be recognize as id
+router.get('/new', (req, res) => {
+  res.render('new')
+})
+
 router.get('/:id', (req, res) => {
   const id = req.params.id
   Restaurant.findById(id)
     .lean()
     .then(restaurant => { res.render('show', { restaurant }) })
     .catch(error => console.log(error))
-
 })
 
-// create
-router.get('/new', (req, res) => {
-  return res.render('new')
-})
+
 
 router.post('/', (req, res) => {
   // why do we do this way?
